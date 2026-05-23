@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>El Vape No Es Solo Vapor | Campaña Universitaria de Prevención</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <style>
+    /* ==============================
+       VARIABLES & RESET
+    ============================== */
+    :root {
+      --bg: #07070f;
+      --bg2: #0d0d1e;
+      --bg3: #111128;
+      --purple: #7b2fff;
+      --purple-l: #a855f7;
+      --purple-d: #4b1bb0;
+      --red: #ef4444;
+      --red-b: #ff3333;
+      --white: #ffffff;
+      --gray: #9ca3af;
+      --gray-l: #d1d5db;
+      --border: rgba(123, 47, 255, 0.22);
+      --border2: rgba(255, 255, 255, 0.06);
+      --gp: 0 0 35px rgba(123, 47, 255, 0.45);
+      --gr: 0 0 35px rgba(239, 68, 68, 0.45);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ==============================
+       NAVBAR
+    ============================== */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(7, 7, 15, 0.82);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.4s;
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.55rem; letter-spacing: 3px;
+      background: linear-gradient(135deg, var(--purple-l), var(--red));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--gray); transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--purple-l); }
+    .nav-cta {
+      padding: 0.5rem 1.4rem;
+      background: linear-gradient(135deg, var(--purple), var(--red));
+      border-radius: 50px; font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 1px; transition: all 0.3s;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: var(--gp); }
+
+    /* ==============================
+       PARTICLES
+    ============================== */
+    #particles {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .p-dot {
+      position: absolute; border-radius: 50%; opacity: 0;
+      animation: rise linear infinite;
+    }
+    @keyframes rise {
+      0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+      10%  { opacity: 0.55; }
+      90%  { opacity: 0.35; }
+      100% { transform: translateY(-120px) scale(1.2); opacity: 0; }
+    }
+
+    /* ==============================
+       REVEAL ON SCROLL
+    ============================== */
+    .reveal {
+      opacity: 0; transform: translateY(42px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ==============================
+       HERO
+    ============================== */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 7rem 1.5rem 5rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 60% at 20% 60%, rgba(123,47,255,.14) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 80% 20%, rgba(239,68,68,.09) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 55% at 50% 100%, rgba(123,47,255,.07) 0%, transparent 60%);
+    }
+    /* Decorative grid */
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(123,47,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(123,47,255,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .4rem 1.1rem;
+      border: 1px solid var(--border); border-radius: 50px;
+      font-size: .72rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--purple-l); background: rgba(123,47,255,.06);
+      margin-bottom: 1.8rem;
+      animation: fadey .9s ease both;
+    }
+    .badge-dot {
+      width: 7px; height: 7px; background: var(--red); border-radius: 50%;
+      animation: blink 2s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.8rem, 11vw, 9.5rem);
+      line-height: .93; letter-spacing: 5px;
+      animation: fadey .9s .15s ease both;
+    }
+    .hero-title .g {
+      background: linear-gradient(135deg, var(--purple-l) 30%, var(--red) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(.95rem, 2.5vw, 1.35rem); font-weight: 300;
+      color: var(--gray-l); max-width: 580px; line-height: 1.75;
+      margin: 1.2rem auto 2.5rem;
+      animation: fadey .9s .3s ease both;
+    }
+    .hero-sub strong { color: var(--white); font-weight: 700; }
+
+    @keyframes fadey { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+    /* CTA Button */
+    .btn-hero {
+      position: relative; display: inline-flex; align-items: center; gap: .7rem;
+      padding: 1rem 2.6rem; border: none; border-radius: 50px; cursor: pointer;
+      font-size: 1rem; font-weight: 700; letter-spacing: 1px; color: #fff;
+      background: linear-gradient(135deg, var(--purple) 0%, var(--red) 100%);
+      overflow: hidden; transition: transform .3s, box-shadow .3s;
+      animation: fadey .9s .45s ease both;
+    }
+    .btn-hero::after {
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(135deg, var(--red), var(--purple));
+      opacity:0; transition: opacity .35s;
+    }
+    .btn-hero:hover { transform: translateY(-4px) scale(1.02); box-shadow: var(--gp), 0 18px 45px rgba(0,0,0,.35); }
+    .btn-hero:hover::after { opacity:1; }
+    .btn-hero span { position: relative; z-index: 1; }
+
+    /* Lung comparison */
+    .lungs-row {
+      display: flex; align-items: center; justify-content: center; gap: 3rem;
+      margin: 3.2rem 0 2.5rem; flex-wrap: wrap;
+      animation: fadey .9s .35s ease both;
+    }
+    .lung-box { text-align: center; }
+    .lung-label {
+      font-size: .7rem; font-weight: 700; letter-spacing: 3.5px;
+      text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .lung-label.h { color: #4ade80; }
+    .lung-label.d { color: var(--red); }
+    .lung-svg { width: 175px; height: 215px; filter: drop-shadow(0 0 22px rgba(123,47,255,.3)); transition: transform .4s; }
+    .lung-svg:hover { transform: scale(1.06); }
+    .vs { font-family:'Bebas Neue',sans-serif; font-size:2.8rem; color:rgba(255,255,255,.18); }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute; bottom: 1.8rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      color: rgba(255,255,255,.25); font-size: .68rem; letter-spacing: 3px; text-transform: uppercase;
+      animation: bob 2.2s ease infinite;
+    }
+    @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-9px)} }
+
+    /* ==============================
+       STATS BAND
+    ============================== */
+    .stats-band { padding: 0 2rem; }
+    .stats-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+      padding: 3.5rem 0;
+      border-top: 1px solid var(--border2);
+      border-bottom: 1px solid var(--border2);
+    }
+    .stat-cell { text-align: center; }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem,5vw,4rem);
+      background: linear-gradient(135deg, var(--purple-l), var(--red));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      letter-spacing: 2px; display: block;
+    }
+    .stat-lbl { font-size: .8rem; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; line-height: 1.5; }
+
+    /* ==============================
+       SHARED SECTION STYLES
+    ============================== */
+    .sec-wrap { padding: 7rem 2rem; }
+    .sec-inner { max-width: 1200px; margin: 0 auto; }
+    .sec-hd { text-align: center; margin-bottom: 4rem; }
+    .badge {
+      display: inline-block; padding: .3rem 1rem;
+      background: rgba(123,47,255,.1); border: 1px solid var(--border);
+      border-radius: 50px; font-size: .72rem; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--purple-l);
+      margin-bottom: .9rem;
+    }
+    .sec-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.6rem, 6vw, 4.8rem);
+      letter-spacing: 3px; line-height: 1;
+    }
+    .sec-title .r  { color: var(--red); }
+    .sec-title .pl { color: var(--purple-l); }
+    .divider { width: 72px; height: 3px; background: linear-gradient(90deg,var(--purple),var(--red)); border-radius: 2px; margin: 1.2rem auto; }
+    .sec-sub { font-size: 1.05rem; color: var(--gray); max-width: 580px; margin: 0 auto; line-height: 1.75; }
+
+    /* ==============================
+       INGREDIENTS GRID
+    ============================== */
+    .ingr-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 1.6rem;
+    }
+    .ingr-card {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 22px;
+      padding: 2.4rem 2rem; position: relative; overflow: hidden;
+      transition: transform .35s, border-color .35s, box-shadow .35s; cursor: default;
+    }
+    .ingr-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+      background: linear-gradient(90deg, var(--purple), var(--red));
+      transform: scaleX(0); transform-origin: left; transition: transform .4s ease;
+    }
+    .ingr-card:hover {
+      transform: translateY(-9px); border-color: rgba(123,47,255,.5);
+      box-shadow: var(--gp), 0 22px 48px rgba(0,0,0,.3);
+    }
+    .ingr-card:hover::before { transform: scaleX(1); }
+
+    .ingr-icon {
+      width: 58px; height: 58px; border-radius: 15px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.75rem; margin-bottom: 1.5rem;
+    }
+    .ic-purple { background: rgba(123,47,255,.14); color: var(--purple-l); box-shadow: 0 0 22px rgba(123,47,255,.18); }
+    .ic-red    { background: rgba(239,68,68,.14);  color: var(--red);       box-shadow: 0 0 22px rgba(239,68,68,.18); }
+    .ic-orange { background: rgba(249,115,22,.14); color: #f97316;          box-shadow: 0 0 22px rgba(249,115,22,.18); }
+    .ic-pink   { background: rgba(236,72,153,.14); color: #ec4899;          box-shadow: 0 0 22px rgba(236,72,153,.18); }
+
+    .ingr-name { font-family:'Bebas Neue',sans-serif; font-size:1.65rem; letter-spacing:2px; margin-bottom:.65rem; }
+    .ingr-desc { font-size: .88rem; color: var(--gray); line-height: 1.75; }
+    .itag {
+      display: inline-block; margin-top: 1rem;
+      padding: .22rem .75rem; border-radius: 50px;
+      font-size: .68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .t-add  { background:rgba(123,47,255,.13); color:var(--purple-l); border:1px solid var(--border); }
+    .t-dng  { background:rgba(239,68,68,.13);  color:var(--red);       border:1px solid rgba(239,68,68,.28); }
+    .t-tox  { background:rgba(249,115,22,.13); color:#f97316;          border:1px solid rgba(249,115,22,.28); }
+    .t-cnc  { background:rgba(236,72,153,.13); color:#ec4899;          border:1px solid rgba(236,72,153,.28); }
+
+    /* ==============================
+       BODY EFFECTS
+    ============================== */
+    .body-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 2rem; }
+    .body-card {
+      background: var(--bg2); border: 1px solid var(--border2); border-radius: 24px;
+      padding: 2.5rem 2rem; position: relative; overflow: hidden;
+      transition: transform .4s, border-color .4s, box-shadow .4s;
+    }
+    .body-card::after {
+      content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+      background: linear-gradient(90deg, var(--purple), var(--red));
+      transform: scaleX(0); transform-origin: left; transition: transform .45s ease;
+    }
+    .body-card:hover { transform: translateY(-6px); border-color: rgba(123,47,255,.38); box-shadow: 0 24px 52px rgba(0,0,0,.28); }
+    .body-card:hover::after { transform: scaleX(1); }
+
+    .b-icon-wrap { position:relative; width:78px; height:78px; margin-bottom:1.4rem; }
+    .b-icon-bg { position:absolute; inset:0; border-radius:18px; opacity:.1; }
+    .b-icon { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:2.6rem; }
+    .organ-name { font-family:'Bebas Neue',sans-serif; font-size:1.85rem; letter-spacing:2px; margin-bottom:.5rem; }
+    .organ-txt { font-size:.88rem; color:var(--gray); line-height:1.75; margin-bottom:1.4rem; }
+    .chips { display:flex; flex-wrap:wrap; gap:.45rem; margin-bottom:1.4rem; }
+    .chip {
+      padding:.25rem .7rem; font-size:.68rem; font-weight:600; letter-spacing:.5px;
+      background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.2); border-radius:50px; color:#fca5a5;
+    }
+    .risk-row { display:flex; align-items:center; gap:.7rem; }
+    .risk-lbl { font-size:.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--gray); white-space:nowrap; }
+    .risk-track { flex:1; height:4px; border-radius:2px; background:rgba(255,255,255,.07); overflow:hidden; }
+    .risk-fill { height:100%; border-radius:2px; background:linear-gradient(90deg,var(--purple),var(--red)); width:0; transition:width 1.4s cubic-bezier(.4,0,.2,1) .3s; }
+
+    /* ==============================
+       MYTHS VS REALITY
+    ============================== */
+    .myth-note { font-size:.82rem; color:var(--gray); text-align:center; margin-bottom:2.5rem; letter-spacing:.5px; }
+    .myth-note i { color:var(--purple-l); margin-right:.4rem; }
+    .myths-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(310px, 1fr)); gap:2rem; }
+
+    .m-card { height:270px; perspective:1100px; cursor:pointer; }
+    .m-inner {
+      width:100%; height:100%; position:relative;
+      transform-style:preserve-3d;
+      transition:transform .75s cubic-bezier(.4,0,.2,1);
+    }
+    .m-card.flipped .m-inner { transform:rotateY(180deg); }
+
+    .m-front, .m-back {
+      position:absolute; inset:0; border-radius:24px; padding:2.5rem;
+      backface-visibility:hidden; -webkit-backface-visibility:hidden;
+      display:flex; flex-direction:column; justify-content:center;
+    }
+    .m-front {
+      background:var(--bg2); border:1px solid var(--border2);
+    }
+    .m-back {
+      background:linear-gradient(135deg, rgba(239,68,68,.12), rgba(123,47,255,.12));
+      border:1px solid rgba(239,68,68,.3); transform:rotateY(180deg);
+    }
+    .m-tag {
+      display:inline-block; padding:.28rem .75rem; border-radius:50px;
+      font-size:.68rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:.9rem;
+    }
+    .m-tag.mito { background:rgba(123,47,255,.18); color:var(--purple-l); border:1px solid var(--border); }
+    .m-tag.falso { background:rgba(239,68,68,.18); color:var(--red); border:1px solid rgba(239,68,68,.3); }
+    .m-txt { font-family:'Bebas Neue',sans-serif; font-size:1.65rem; letter-spacing:2px; line-height:1.2; margin-bottom:1rem; }
+    .m-hint { font-size:.77rem; color:var(--gray); display:flex; align-items:center; gap:.4rem; }
+    .m-hint i { color:var(--purple-l); }
+    .m-reality { font-size:.88rem; color:var(--gray-l); line-height:1.75; }
+    .m-stat { font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--red); letter-spacing:2px; margin-top:.9rem; }
+
+    /* hover glow on front */
+    .m-card:hover .m-front {
+      border-color: rgba(123,47,255,.38);
+      box-shadow: var(--gp);
+    }
+
+    /* ==============================
+       QUIZ
+    ============================== */
+    .quiz-wrap { max-width:720px; margin:0 auto; }
+    .quiz-box {
+      background:var(--bg2); border:1px solid var(--border); border-radius:28px;
+      padding:3rem; position:relative; overflow:hidden;
+    }
+    .quiz-box::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:4px;
+      background:linear-gradient(90deg, var(--purple), var(--red));
+    }
+    .q-prog { display:flex; gap:.5rem; margin-bottom:2rem; }
+    .q-dot { flex:1; height:4px; border-radius:2px; background:rgba(255,255,255,.08); transition:background .4s; }
+    .q-dot.on { background:linear-gradient(90deg,var(--purple),var(--red)); }
+
+    .q-text { font-family:'Bebas Neue',sans-serif; font-size:1.75rem; letter-spacing:2px; line-height:1.2; margin-bottom:1.8rem; }
+    .q-opts { display:flex; flex-direction:column; gap:.7rem; }
+    .q-opt {
+      display:flex; align-items:center; gap:1rem;
+      padding:1rem 1.4rem; border-radius:14px; cursor:pointer;
+      background:rgba(255,255,255,.02); border:1px solid var(--border2);
+      font-size:.92rem; color:var(--gray-l); text-align:left;
+      transition:all .3s; width:100%;
+    }
+    .q-opt:hover { border-color:var(--purple); background:rgba(123,47,255,.08); color:var(--white); transform:translateX(6px); }
+    .q-opt.sel   { border-color:var(--purple); background:rgba(123,47,255,.13); color:var(--white); }
+    .q-letter {
+      width:30px; height:30px; flex-shrink:0; border-radius:8px;
+      background:rgba(123,47,255,.1); border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      font-size:.78rem; font-weight:700; color:var(--purple-l);
+    }
+    .q-nav { display:flex; justify-content:flex-end; margin-top:2rem; }
+    .btn-next {
+      padding:.8rem 2.1rem; border-radius:50px; border:none; cursor:pointer;
+      background:linear-gradient(135deg,var(--purple),var(--red));
+      color:#fff; font-weight:700; font-size:.88rem;
+      opacity:.45; pointer-events:none; transition:all .3s;
+    }
+    .btn-next.on { opacity:1; pointer-events:auto; }
+    .btn-next.on:hover { transform:translateY(-3px); box-shadow:var(--gp); }
+
+    /* Result */
+    #q-result { display:none; text-align:center; }
+    .res-emoji { font-size:4rem; margin-bottom:1.4rem; }
+    .res-title { font-family:'Bebas Neue',sans-serif; font-size:2.6rem; letter-spacing:3px; margin-bottom:.5rem; }
+    .res-track { background:rgba(255,255,255,.06); border-radius:10px; height:12px; margin:1.4rem 0; overflow:hidden; }
+    .res-fill { height:100%; border-radius:10px; background:linear-gradient(90deg,var(--purple),var(--red)); transition:width 1.6s cubic-bezier(.4,0,.2,1); }
+    .res-msg { font-size:.96rem; color:var(--gray-l); line-height:1.75; max-width:480px; margin:0 auto 2rem; }
+    .btn-reset {
+      display:inline-flex; align-items:center; gap:.6rem;
+      padding:.85rem 2rem; border-radius:50px; border:none; cursor:pointer;
+      background:linear-gradient(135deg,var(--purple),var(--red));
+      color:#fff; font-weight:700; font-size:.9rem; transition:all .3s;
+    }
+    .btn-reset:hover { transform:translateY(-3px); box-shadow:var(--gp); }
+
+    /* ==============================
+       FINAL MESSAGE
+    ============================== */
+    .final-sec {
+      min-height: 75vh; display:flex; align-items:center; justify-content:center;
+      text-align:center; padding:7rem 2rem; position:relative; overflow:hidden;
+    }
+    .final-bg {
+      position:absolute; inset:0; pointer-events:none;
+      background:
+        radial-gradient(ellipse 65% 65% at 50% 50%, rgba(123,47,255,.16) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 30% 70%, rgba(239,68,68,.09) 0%, transparent 60%);
+    }
+    .final-grid {
+      position:absolute; inset:0; pointer-events:none;
+      background-image:
+        linear-gradient(rgba(123,47,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(123,47,255,.035) 1px, transparent 1px);
+      background-size:60px 60px;
+      mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+    }
+    .final-content { position:relative; z-index:1; max-width:950px; margin:0 auto; }
+    .final-title {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(3.2rem,11vw,8.5rem);
+      line-height:.92; letter-spacing:5px;
+      text-shadow:0 0 55px rgba(123,47,255,.35);
+    }
+    .final-title .g2 {
+      background:linear-gradient(135deg, var(--purple-l) 20%, var(--red) 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .final-sub {
+      font-size:clamp(1rem,3vw,1.45rem); font-weight:300;
+      color:var(--gray-l); letter-spacing:2.5px; margin:1.4rem 0 3rem;
+    }
+    .btn-final {
+      position:relative; display:inline-flex; align-items:center; gap:.8rem;
+      padding:1.2rem 3rem; border-radius:50px; cursor:pointer;
+      font-size:1.05rem; font-weight:700; letter-spacing:1px; color:#fff;
+      background:transparent;
+      border:2px solid transparent;
+      background-clip:padding-box;
+      transition:all .4s; overflow:hidden;
+    }
+    /* gradient border trick */
+    .btn-final::before {
+      content:''; position:absolute; inset:-2px; border-radius:50px; z-index:-2;
+      background:linear-gradient(135deg,var(--purple),var(--red));
+    }
+    .btn-final::after {
+      content:''; position:absolute; inset:0; border-radius:50px; z-index:-1;
+      background:var(--bg); transition:background .4s;
+    }
+    .btn-final:hover::after { background:linear-gradient(135deg,var(--purple),var(--red)); }
+    .btn-final:hover { transform:translateY(-4px); box-shadow:var(--gp), 0 20px 50px rgba(0,0,0,.35); }
+    .btn-final span { position:relative; z-index:1; }
+
+    /* ==============================
+       FOOTER
+    ============================== */
+    footer {
+      background:#06060e; border-top:1px solid var(--border);
+      padding:4.5rem 2rem 2rem;
+    }
+    .ft-inner { max-width:1200px; margin:0 auto; }
+    .ft-top {
+      display:grid; grid-template-columns:2fr 1fr 1fr; gap:3rem; margin-bottom:3rem;
+    }
+    .ft-logo {
+      font-family:'Bebas Neue',sans-serif; font-size:1.9rem; letter-spacing:3px;
+      background:linear-gradient(135deg,var(--purple),var(--red));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      margin-bottom:1rem;
+    }
+    .ft-desc { font-size:.84rem; color:var(--gray); line-height:1.8; max-width:300px; }
+    .ft-social { display:flex; gap:.75rem; margin-top:1.5rem; }
+    .si {
+      width:40px; height:40px; border-radius:10px;
+      background:var(--bg2); border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--gray); font-size:1rem; transition:all .3s;
+    }
+    .si:hover { background:rgba(123,47,255,.14); border-color:var(--purple); color:var(--purple-l); transform:translateY(-3px); }
+    .ft-col h4 { font-size:.72rem; letter-spacing:3px; text-transform:uppercase; color:var(--purple-l); font-weight:600; margin-bottom:1.4rem; }
+    .ft-links { list-style:none; display:flex; flex-direction:column; gap:.7rem; }
+    .ft-links a { font-size:.84rem; color:var(--gray); transition:color .3s; }
+    .ft-links a:hover { color:var(--white); }
+    .ft-refs { list-style:none; display:flex; flex-direction:column; gap:.65rem; }
+    .ft-refs li {
+      font-size:.74rem; color:var(--gray); line-height:1.65;
+      padding-left:.9rem; border-left:2px solid var(--border);
+    }
+    .ft-bottom {
+      padding-top:2rem; border-top:1px solid rgba(255,255,255,.05);
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;
+    }
+    .ft-copy { font-size:.78rem; color:var(--gray); }
+    .ft-disc { font-size:.72rem; color:rgba(255,255,255,.18); max-width:400px; text-align:right; }
+
+    /* ==============================
+       RESPONSIVE
+    ============================== */
+    @media(max-width:900px) {
+      .ft-top { grid-template-columns:1fr 1fr; }
+    }
+    @media(max-width:700px) {
+      .nav-links { display:none; }
+      .lungs-row { gap:1.5rem; }
+      .lung-svg { width:140px; height:175px; }
+      .stats-inner { grid-template-columns:1fr; gap:2rem; }
+      .myths-grid { grid-template-columns:1fr; }
+      .quiz-box { padding:2rem 1.5rem; }
+      .ft-top { grid-template-columns:1fr; }
+      .ft-disc { text-align:left; }
+      .hero-title { font-size:3.5rem; }
+    }
+    @media(max-width:480px) {
+      .sec-title { font-size:2.4rem; }
+      .final-title { font-size:3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- PARTICLES -->
+<div id="particles"></div>
+
+<!-- ==============================
+     NAVBAR
+============================== -->
+<nav id="navbar">
+  <div class="nav-logo">VAPE ALERT</div>
+  <ul class="nav-links">
+    <li><a href="#ingredientes">Contenido</a></li>
+    <li><a href="#efectos">Efectos</a></li>
+    <li><a href="#mitos">Mitos</a></li>
+    <li><a href="#quiz">Test</a></li>
+  </ul>
+  <a href="#quiz" class="nav-cta">Haz el test</a>
+</nav>
+
+<!-- ==============================
+     HERO
+============================== -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    Campaña Universitaria de Prevención 2025
+  </div>
+
+  <h1 class="hero-title">
+    EL VAPE<br>
+    <span class="g">NO ES SOLO</span><br>
+    VAPOR
+  </h1>
+
+  <p class="hero-sub">
+    Lo que parece inofensivo puede dejar
+    <strong>daños permanentes</strong> en tu cuerpo, mente y futuro.
+  </p>
+
+  <!-- PULMONES SVG -->
+  <div class="lungs-row">
+    <!-- Pulmón sano -->
+    <div class="lung-box">
+      <div class="lung-label h">PULMÓN SANO</div>
+      <svg class="lung-svg" viewBox="0 0 180 220" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="hG" cx="50%" cy="45%" r="55%">
+            <stop offset="0%"   stop-color="#86efac" stop-opacity=".95"/>
+            <stop offset="55%"  stop-color="#22c55e" stop-opacity=".85"/>
+            <stop offset="100%" stop-color="#15803d" stop-opacity=".9"/>
+          </radialGradient>
+          <filter id="fg">
+            <feGaussianBlur stdDeviation="2.5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- Lóbulo izquierdo -->
+        <path d="M88 32 C66 20 36 27 22 58 C12 80 18 115 28 146 C38 172 54 190 74 198 C82 201 88 198 88 192"
+              fill="url(#hG)" stroke="#4ade80" stroke-width="1.4" opacity=".88" filter="url(#fg)"/>
+        <!-- Lóbulo derecho -->
+        <path d="M92 32 C114 20 144 27 158 58 C168 80 162 115 152 146 C142 172 126 190 106 198 C98 201 92 198 92 192"
+              fill="url(#hG)" stroke="#4ade80" stroke-width="1.4" opacity=".88" filter="url(#fg)"/>
+        <!-- Traquea -->
+        <rect x="84" y="4" width="12" height="36" rx="6" fill="#4ade80" opacity=".75"/>
+        <!-- Bronquios -->
+        <path d="M90 38 L72 64 M90 38 L108 64
+                 M72 64 L60 90 M72 64 L84 94
+                 M108 64 L120 90 M108 64 L96 94
+                 M60 90 L50 115 M60 90 L68 118
+                 M120 90 L130 115 M120 90 L112 118"
+              stroke="#16a34a" stroke-width="2" fill="none" stroke-linecap="round" opacity=".65"/>
+        <!-- Destellos vivos -->
+        <circle cx="52" cy="105" r="3.5" fill="#bbf7d0" opacity=".85">
+          <animate attributeName="opacity" values=".85;.25;.85" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="r" values="3.5;2;3.5" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="128" cy="125" r="2.5" fill="#bbf7d0" opacity=".75">
+          <animate attributeName="opacity" values=".75;.2;.75" dur="2.7s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="78" cy="155" r="3" fill="#bbf7d0" opacity=".65">
+          <animate attributeName="opacity" values=".65;.1;.65" dur="3.2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="110" cy="160" r="2" fill="#86efac" opacity=".55">
+          <animate attributeName="opacity" values=".55;.15;.55" dur="2.4s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+
+    <div class="vs">VS</div>
+
+    <!-- Pulmón vapeador -->
+    <div class="lung-box">
+      <div class="lung-label d">PULMÓN VAPEADOR</div>
+      <svg class="lung-svg" viewBox="0 0 180 220" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="dG" cx="50%" cy="45%" r="55%">
+            <stop offset="0%"   stop-color="#7f1d1d" stop-opacity=".95"/>
+            <stop offset="50%"  stop-color="#991b1b" stop-opacity=".9"/>
+            <stop offset="100%" stop-color="#3b0808" stop-opacity=".98"/>
+          </radialGradient>
+          <radialGradient id="spotG" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#1a0505" stop-opacity=".9"/>
+            <stop offset="100%" stop-color="#450a0a" stop-opacity=".6"/>
+          </radialGradient>
+          <filter id="fr">
+            <feGaussianBlur stdDeviation="3.5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- Lóbulo izquierdo — encogido, irregular -->
+        <path d="M88 32 C64 22 33 30 19 62 C8 85 15 122 26 152 C36 175 51 192 71 199 C80 202 87 199 88 192"
+              fill="url(#dG)" stroke="#ef4444" stroke-width="1.6" opacity=".92" filter="url(#fr)"/>
+        <!-- Manchas de daño izq -->
+        <circle cx="43" cy="82"  r="9"   fill="url(#spotG)" opacity=".8"/>
+        <circle cx="58" cy="122" r="7"   fill="url(#spotG)" opacity=".75"/>
+        <circle cx="33" cy="155" r="5.5" fill="#1c0606"     opacity=".85"/>
+        <circle cx="50" cy="165" r="4"   fill="#1c0606"     opacity=".7"/>
+        <!-- Lóbulo derecho — irregular -->
+        <path d="M92 32 C116 22 147 30 161 62 C172 85 165 122 154 152 C144 175 129 192 109 199 C100 202 93 199 92 192"
+              fill="url(#dG)" stroke="#ef4444" stroke-width="1.6" opacity=".92" filter="url(#fr)"/>
+        <!-- Manchas daño der -->
+        <circle cx="137" cy="92"  r="8"   fill="url(#spotG)" opacity=".8"/>
+        <circle cx="122" cy="132" r="11"  fill="url(#spotG)" opacity=".85"/>
+        <circle cx="147" cy="162" r="5"   fill="#1c0606"     opacity=".7"/>
+        <circle cx="130" cy="170" r="4"   fill="#1c0606"     opacity=".65"/>
+        <!-- Grietas -->
+        <path d="M48 70 L60 88 M36 102 L52 114 M125 82 L138 70 M132 115 L148 125 M65 148 L55 162"
+              stroke="#7f1d1d" stroke-width="1.2" fill="none" opacity=".55" stroke-linecap="round"/>
+        <!-- Traquea oscura -->
+        <rect x="84" y="4" width="12" height="36" rx="6" fill="#b91c1c" opacity=".85"/>
+        <!-- Bronquios inflamados -->
+        <path d="M90 38 L70 65 M90 38 L110 65
+                 M70 65 L57 92 M70 65 L82 96
+                 M110 65 L123 92 M110 65 L98 96"
+              stroke="#dc2626" stroke-width="3.5" fill="none" stroke-linecap="round" opacity=".5"/>
+        <!-- Brillo inflamación -->
+        <ellipse cx="90" cy="112" rx="56" ry="68" fill="#ef4444" opacity=".038"/>
+        <!-- Partículas tóxicas -->
+        <circle cx="68" cy="72" r="2.2" fill="#fcd34d" opacity=".55">
+          <animate attributeName="cy" values="72;60;72" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".55;.1;.55" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="112" cy="98" r="1.8" fill="#fcd34d" opacity=".45">
+          <animate attributeName="cy" values="98;85;98" dur="2.6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".45;.1;.45" dur="2.6s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="82" cy="140" r="1.5" fill="#fca5a5" opacity=".4">
+          <animate attributeName="cy" values="140;128;140" dur="3.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="118" cy="145" r="2" fill="#fcd34d" opacity=".35">
+          <animate attributeName="cy" values="145;132;145" dur="4s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+  </div>
+
+  <a href="#ingredientes" class="btn-hero">
+    <span><i class="fa-solid fa-magnifying-glass"></i> Descubre la verdad</span>
+  </a>
+
+  <div class="scroll-hint">
+    <i class="fa-solid fa-chevron-down"></i>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ==============================
+     STATS BAND
+============================== -->
+<div class="stats-band">
+  <div class="stats-inner reveal">
+    <div class="stat-cell">
+      <span class="stat-num" data-val="40" data-sfx="%">0%</span>
+      <span class="stat-lbl">Más universitarios<br>vapean que antes</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num" data-val="2000" data-sfx="+">0+</span>
+      <span class="stat-lbl">Químicos en<br>cada puff</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num" data-val="7" data-sfx="×">0×</span>
+      <span class="stat-lbl">Más adictivo<br>que un cigarro</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==============================
+     INGREDIENTES
+============================== -->
+<div id="ingredientes" class="sec-wrap">
+  <div class="sec-inner">
+    <div class="sec-hd reveal">
+      <div class="badge">Análisis Químico</div>
+      <h2 class="sec-title">¿QUÉ CONTIENE<br><span class="r">UN VAPER?</span></h2>
+      <div class="divider"></div>
+      <p class="sec-sub">Cada inhalada introduce un cóctel de sustancias diseñadas para crear dependencia y dañar tu cuerpo de por vida.</p>
+    </div>
+
+    <div class="ingr-grid">
+      <div class="ingr-card reveal">
+        <div class="ingr-icon ic-purple"><i class="fa-solid fa-bolt"></i></div>
+        <div class="ingr-name">NICOTINA</div>
+        <p class="ingr-desc">Sustancia altamente adictiva que altera la química cerebral. Un solo pod puede contener la nicotina equivalente a <strong>20 cigarrillos o más</strong>, entregada de forma ultrarrápida.</p>
+        <span class="itag t-add">Alta adicción</span>
+      </div>
+
+      <div class="ingr-card reveal">
+        <div class="ingr-icon ic-red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <div class="ingr-name">METALES PESADOS</div>
+        <p class="ingr-desc">Plomo, níquel, cromo y estaño se liberan desde la resistencia calentada. Se acumulan en pulmones y sangre causando <strong>daño neurológico y renal</strong> permanente.</p>
+        <span class="itag t-dng">Peligro grave</span>
+      </div>
+
+      <div class="ingr-card reveal">
+        <div class="ingr-icon ic-orange"><i class="fa-solid fa-biohazard"></i></div>
+        <div class="ingr-name">SUSTANCIAS TÓXICAS</div>
+        <p class="ingr-desc">Formaldehído, acroleína y diacetil causan <strong>inflamación pulmonar severa</strong>. El síndrome EVALI ("pulmón del vapeador") ya ha causado miles de hospitalizaciones.</p>
+        <span class="itag t-tox">Tóxico</span>
+      </div>
+
+      <div class="ingr-card reveal">
+        <div class="ingr-icon ic-pink"><i class="fa-solid fa-skull"></i></div>
+        <div class="ingr-name">CANCERÍGENOS</div>
+        <p class="ingr-desc">Nitrosaminas, benceno y partículas ultrafinas penetran profundamente en el tejido pulmonar. Su <strong>potencial cancerígeno</strong> está documentado y sigue estudiándose.</p>
+        <span class="itag t-cnc">Riesgo cáncer</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==============================
+     EFECTOS EN EL CUERPO
+============================== -->
+<div id="efectos" class="sec-wrap" style="background: linear-gradient(180deg,transparent,rgba(123,47,255,.04),transparent);">
+  <div class="sec-inner">
+    <div class="sec-hd reveal">
+      <div class="badge">Daño Documentado</div>
+      <h2 class="sec-title">EFECTOS EN<br><span class="pl">TU CUERPO</span></h2>
+      <div class="divider"></div>
+      <p class="sec-sub">La ciencia ha documentado daños en múltiples sistemas. Los efectos comienzan en las primeras semanas de uso regular.</p>
+    </div>
+
+    <div class="body-grid">
+      <!-- Pulmones -->
+      <div class="body-card reveal">
+        <div class="b-icon-wrap">
+          <div class="b-icon-bg" style="background:#ef4444;"></div>
+          <div class="b-icon">🫁</div>
+        </div>
+        <div class="organ-name">PULMONES</div>
+        <p class="organ-txt">La inhalación continua de vapores calientes provoca inflamación crónica, reduce la capacidad pulmonar y puede causar fibrosis irreversible. El EVALI ha causado muertes en jóvenes de 20 años.</p>
+        <div class="chips">
+          <span class="chip">↓ 30% capacidad</span>
+          <span class="chip">Inflamación crónica</span>
+          <span class="chip">Fibrosis pulmonar</span>
+        </div>
+        <div class="risk-row">
+          <span class="risk-lbl">Riesgo</span>
+          <div class="risk-track"><div class="risk-fill" data-w="92"></div></div>
+        </div>
+      </div>
+
+      <!-- Corazón -->
+      <div class="body-card reveal">
+        <div class="b-icon-wrap">
+          <div class="b-icon-bg" style="background:#f97316;"></div>
+          <div class="b-icon">❤️</div>
+        </div>
+        <div class="organ-name">CORAZÓN</div>
+        <p class="organ-txt">La nicotina eleva la presión arterial y dispara el ritmo cardíaco en cada puff. Aumenta drásticamente el riesgo de infarto y accidente cerebrovascular, incluso en universitarios sin historial previo.</p>
+        <div class="chips">
+          <span class="chip">↑ Presión arterial</span>
+          <span class="chip">Arritmias</span>
+          <span class="chip">Riesgo infarto joven</span>
+        </div>
+        <div class="risk-row">
+          <span class="risk-lbl">Riesgo</span>
+          <div class="risk-track"><div class="risk-fill" data-w="77"></div></div>
+        </div>
+      </div>
+
+      <!-- Cerebro -->
+      <div class="body-card reveal">
+        <div class="b-icon-wrap">
+          <div class="b-icon-bg" style="background:#7b2fff;"></div>
+          <div class="b-icon">🧠</div>
+        </div>
+        <div class="organ-name">CEREBRO</div>
+        <p class="organ-txt">El cerebro universitario se desarrolla hasta los 25 años. La nicotina reprograma los circuitos de recompensa, creando adicción severa y deteriorando concentración, memoria y capacidad de aprendizaje.</p>
+        <div class="chips">
+          <span class="chip">↓ Concentración</span>
+          <span class="chip">Adicción rápida</span>
+          <span class="chip">Daño cognitivo</span>
+        </div>
+        <div class="risk-row">
+          <span class="risk-lbl">Riesgo</span>
+          <div class="risk-track"><div class="risk-fill" data-w="87"></div></div>
+        </div>
+      </div>
+
+      <!-- Salud Mental -->
+      <div class="body-card reveal">
+        <div class="b-icon-wrap">
+          <div class="b-icon-bg" style="background:#ec4899;"></div>
+          <div class="b-icon">🧩</div>
+        </div>
+        <div class="organ-name">SALUD MENTAL</div>
+        <p class="organ-txt">El vapeo que "calma la ansiedad" en realidad la intensifica. La dependencia crea ciclos de estrés, irritabilidad y depresión. Los vapers presentan 3 veces más ansiedad que quienes no consumen.</p>
+        <div class="chips">
+          <span class="chip">↑ 3× ansiedad</span>
+          <span class="chip">Depresión</span>
+          <span class="chip">Ciclos de estrés</span>
+        </div>
+        <div class="risk-row">
+          <span class="risk-lbl">Riesgo</span>
+          <div class="risk-track"><div class="risk-fill" data-w="82"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==============================
+     MITOS VS REALIDAD
+============================== -->
+<div id="mitos" class="sec-wrap">
+  <div class="sec-inner">
+    <div class="sec-hd reveal">
+      <div class="badge">Desmitificando</div>
+      <h2 class="sec-title">MITOS<br><span class="r">VS REALIDAD</span></h2>
+      <div class="divider"></div>
+      <p class="sec-sub">La industria del vape invirtió millones para crear estas ideas falsas. Haz clic en cada tarjeta para descubrir la verdad.</p>
+    </div>
+
+    <p class="myth-note reveal"><i class="fa-solid fa-hand-pointer"></i> Toca o haz clic para revelar la realidad</p>
+
+    <div class="myths-grid reveal">
+      <!-- Mito 1 -->
+      <div class="m-card" id="mc1" onclick="flipCard('mc1')">
+        <div class="m-inner">
+          <div class="m-front">
+            <span class="m-tag mito">Mito #1</span>
+            <div class="m-txt">"Es solo vapor de agua"</div>
+            <div class="m-hint"><i class="fa-solid fa-rotate"></i> Haz clic para ver la realidad</div>
+          </div>
+          <div class="m-back">
+            <span class="m-tag falso">❌ FALSO</span>
+            <div class="m-txt">Es un aerosol tóxico</div>
+            <p class="m-reality">Contiene partículas ultrafinas, metales pesados, nicotina y más de 2,000 químicos identificados — el agua no aparece en la lista de los protagonistas.</p>
+            <div class="m-stat">2,000+ QUÍMICOS</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mito 2 -->
+      <div class="m-card" id="mc2" onclick="flipCard('mc2')">
+        <div class="m-inner">
+          <div class="m-front">
+            <span class="m-tag mito">Mito #2</span>
+            <div class="m-txt">"No causa adicción"</div>
+            <div class="m-hint"><i class="fa-solid fa-rotate"></i> Haz clic para ver la realidad</div>
+          </div>
+          <div class="m-back">
+            <span class="m-tag falso">❌ FALSO</span>
+            <div class="m-txt">Crea adicción fulminante</div>
+            <p class="m-reality">Los pods modernos tienen concentraciones extremas de nicotina. El 63% de vapers diarios no puede dejar de vapear aunque quieran — muchos lo intentan decenas de veces sin éxito.</p>
+            <div class="m-stat">63% NO PUEDE PARAR</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mito 3 -->
+      <div class="m-card" id="mc3" onclick="flipCard('mc3')">
+        <div class="m-inner">
+          <div class="m-front">
+            <span class="m-tag mito">Mito #3</span>
+            <div class="m-txt">"Es más seguro que fumar"</div>
+            <div class="m-hint"><i class="fa-solid fa-rotate"></i> Haz clic para ver la realidad</div>
+          </div>
+          <div class="m-back">
+            <span class="m-tag falso">❌ FALSO</span>
+            <div class="m-txt">Diferente daño, mismo riesgo</div>
+            <p class="m-reality">El vape genera daños únicos no vistos en fumadores: "popcorn lung", EVALI y exposición a metales pesados. Solo tiene 15 años de historia — sus efectos a 30+ años son aún desconocidos.</p>
+            <div class="m-stat">EVALI: MILES DE CASOS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==============================
+     QUIZ
+============================== -->
+<div id="quiz" class="sec-wrap" style="background:linear-gradient(180deg,var(--bg),rgba(123,47,255,.04),var(--bg));">
+  <div class="sec-inner">
+    <div class="sec-hd reveal">
+      <div class="badge">Test Rápido</div>
+      <h2 class="sec-title">¿QUÉ TAN<br><span class="pl">VULNERABLE ERES?</span></h2>
+      <div class="divider"></div>
+      <p class="sec-sub">3 preguntas. Resultado inmediato. Descubre tu nivel de riesgo frente al vapeo.</p>
+    </div>
+
+    <div class="quiz-wrap reveal">
+      <div class="quiz-box">
+        <div id="q-prog" class="q-prog">
+          <div class="q-dot on" id="d1"></div>
+          <div class="q-dot"    id="d2"></div>
+          <div class="q-dot"    id="d3"></div>
+        </div>
+
+        <div id="q-block">
+          <div class="q-text" id="q-text"></div>
+          <div class="q-opts" id="q-opts"></div>
+          <div class="q-nav">
+            <button class="btn-next" id="btn-next" onclick="nextQ()">
+              Siguiente <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div id="q-result">
+          <div class="res-emoji" id="res-emoji"></div>
+          <div class="res-title" id="res-title"></div>
+          <div class="res-track"><div class="res-fill" id="res-fill" style="width:0%"></div></div>
+          <p class="res-msg" id="res-msg"></p>
+          <button class="btn-reset" onclick="resetQ()">
+            <i class="fa-solid fa-rotate-left"></i> Reiniciar test
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==============================
+     MENSAJE FINAL
+============================== -->
+<div class="final-sec">
+  <div class="final-bg"></div>
+  <div class="final-grid"></div>
+  <div class="final-content reveal">
+    <div class="badge" style="margin-bottom:2rem;">Tu decisión importa</div>
+    <h2 class="final-title">
+      TU RESPIRACIÓN<br>
+      <span class="g2">NO TIENE</span><br>
+      REEMPLAZO
+    </h2>
+    <p class="final-sub">Elige libertad, no dependencia.</p>
+    <a href="#inicio" class="btn-final">
+      <span><i class="fa-solid fa-wind"></i> Respira futuro, no vapor</span>
+    </a>
+  </div>
+</div>
+
+<!-- ==============================
+     FOOTER
+============================== -->
+<footer>
+  <div class="ft-inner">
+    <div class="ft-top">
+      <div>
+        <div class="ft-logo">VAPE ALERT</div>
+        <p class="ft-desc">Campaña universitaria de prevención del vapeo 2025. Basada en evidencia científica actualizada para proteger la salud de los estudiantes.</p>
+        <div class="ft-social">
+          <a href="#" class="si"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="si"><i class="fab fa-tiktok"></i></a>
+          <a href="#" class="si"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="si"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div class="ft-col">
+        <h4>Recursos &amp; Ayuda</h4>
+        <ul class="ft-links">
+          <li><a href="#">Línea de ayuda universitaria</a></li>
+          <li><a href="#">Centro de salud campus</a></li>
+          <li><a href="#">Guía para dejar de vapear</a></li>
+          <li><a href="#">Habla con un especialista</a></li>
+          <li><a href="#">Descarga el folleto PDF</a></li>
+        </ul>
+      </div>
+
+      <div class="ft-col">
+        <h4>Referencias Científicas</h4>
+        <ul class="ft-refs">
+          <li>OMS (2023). <em>E-cigarettes and health.</em> Geneva: WHO Press.</li>
+          <li>CDC (2024). <em>Electronic Cigarettes &amp; EVALI.</em> Centers for Disease Control.</li>
+          <li>NEJM (2019). Pulmonary Illness Related to E-Cigarette Use. <em>N Engl J Med</em> 380:1707.</li>
+          <li>Surgeon General's Advisory (2023). <em>E-Cigarette Use Among Youth and Young Adults.</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ft-bottom">
+      <p class="ft-copy">© 2025 Campaña Universitaria de Prevención del Vapeo. Todos los derechos reservados.</p>
+      <p class="ft-disc">Esta página tiene fines exclusivamente educativos. Si tienes dependencia al vapeo, busca ayuda médica profesional.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ==============================
+     JAVASCRIPT
+============================== -->
+<script>
+/* ---------- PARTICLES ---------- */
+(function createParticles() {
+  const container = document.getElementById('particles');
+  const colors = ['#7b2fff','#a855f7','#ef4444','#ec4899','#ffffff'];
+  for (let i = 0; i < 38; i++) {
+    const d = document.createElement('div');
+    d.className = 'p-dot';
+    const sz = Math.random() * 3 + 1;
+    d.style.cssText = `
+      left:${Math.random()*100}%;
+      width:${sz}px; height:${sz}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      animation-duration:${Math.random()*16+10}s;
+      animation-delay:${Math.random()*16}s;
+      opacity:0;
+    `;
+    container.appendChild(d);
+  }
+})();
+
+/* ---------- NAVBAR SCROLL ---------- */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').style.background =
+    window.scrollY > 60 ? 'rgba(7,7,15,.98)' : 'rgba(7,7,15,.82)';
+});
+
+/* ---------- SCROLL REVEAL ---------- */
+const revealEls = document.querySelectorAll('.reveal');
+const ro = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      ro.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => ro.observe(el));
+
+/* ---------- RISK BAR ANIMATION ---------- */
+const barObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.risk-fill').forEach(fill => {
+        fill.style.width = fill.dataset.w + '%';
+      });
+      barObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.body-card').forEach(c => barObs.observe(c));
+
+/* ---------- STATS COUNTER ---------- */
+function animCount(el, target, sfx) {
+  let cur = 0;
+  const step = Math.ceil(target / 55);
+  const t = setInterval(() => {
+    cur = Math.min(cur + step, target);
+    el.textContent = cur + sfx;
+    if (cur >= target) clearInterval(t);
+  }, 22);
+}
+const statObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('[data-val]').forEach(n => {
+        animCount(n, +n.dataset.val, n.dataset.sfx);
+      });
+      statObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+const statsBand = document.querySelector('.stats-inner');
+if (statsBand) statObs.observe(statsBand);
+
+/* ---------- MYTH FLIP ---------- */
+function flipCard(id) {
+  document.getElementById(id).classList.toggle('flipped');
+}
+
+/* ---------- QUIZ ---------- */
+const Qs = [
+  {
+    q: '1. ¿Con qué frecuencia estás en ambientes donde otras personas vapean?',
+    opts: [
+      { t: 'Raramente o nunca',                       s: 1 },
+      { t: 'Ocasionalmente (fines de semana)',         s: 2 },
+      { t: 'Frecuentemente en fiestas y reuniones',   s: 3 },
+      { t: 'Casi todos los días',                     s: 4 },
+    ]
+  },
+  {
+    q: '2. ¿Cómo describes tu nivel de estrés universitario actual?',
+    opts: [
+      { t: 'Bajo, lo manejo bien',                     s: 1 },
+      { t: 'Moderado, algunos días difíciles',          s: 2 },
+      { t: 'Alto, busco formas de alivio constantes',  s: 3 },
+      { t: 'Muy alto, necesito algo que me calme',     s: 4 },
+    ]
+  },
+  {
+    q: '3. ¿Cuál es tu actitud hacia el vapeo?',
+    opts: [
+      { t: 'Lo rechazo completamente',                   s: 1 },
+      { t: 'Me es indiferente, no me llama la atención', s: 2 },
+      { t: 'Lo he probado una vez por curiosidad',        s: 3 },
+      { t: 'Lo veo como algo normal entre jóvenes',      s: 4 },
+    ]
+  }
+];
+
+let qIdx = 0, score = 0, chosen = null;
+const LETTERS = ['A','B','C','D'];
+
+function loadQ() {
+  const q = Qs[qIdx];
+  document.getElementById('q-text').textContent = q.q;
+  const container = document.getElementById('q-opts');
+  container.innerHTML = '';
+  q.opts.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'q-opt';
+    btn.innerHTML = `<span class="q-letter">${LETTERS[i]}</span>${o.t}`;
+    btn.onclick = () => pick(btn, o.s);
+    container.appendChild(btn);
+  });
+  // progress dots
+  ['d1','d2','d3'].forEach((id, i) => {
+    document.getElementById(id).className = 'q-dot' + (i <= qIdx ? ' on' : '');
+  });
+  const nb = document.getElementById('btn-next');
+  const last = qIdx === Qs.length - 1;
+  nb.innerHTML = last
+    ? 'Ver resultado <i class="fa-solid fa-chart-bar"></i>'
+    : 'Siguiente <i class="fa-solid fa-arrow-right"></i>';
+  nb.className = 'btn-next';
+  chosen = null;
+}
+
+function pick(btn, s) {
+  document.querySelectorAll('.q-opt').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  chosen = s;
+  document.getElementById('btn-next').classList.add('on');
+}
+
+function nextQ() {
+  if (chosen === null) return;
+  score += chosen;
+  if (qIdx < Qs.length - 1) { qIdx++; loadQ(); }
+  else showResult();
+}
+
+function showResult() {
+  document.getElementById('q-block').style.display = 'none';
+  const rd = document.getElementById('q-result');
+  rd.style.display = 'block';
+
+  const pct = (score / (Qs.length * 4)) * 100;
+  let emoji, title, msg, color;
+
+  if (pct <= 35) {
+    emoji = '🛡️'; title = '¡BIEN PROTEGIDO!'; color = '#4ade80';
+    msg = 'Tu actitud y entorno te mantienen alejado del vape. ¡Sigue así! Comparte este conocimiento con quienes te importan — tu ejemplo salva vidas.';
+  } else if (pct <= 62) {
+    emoji = '⚠️'; title = 'ZONA DE ATENCIÓN'; color = '#f97316';
+    msg = 'Tienes factores de riesgo en tu entorno. Conocer los peligros reales del vape te da el poder de tomar mejores decisiones. ¡Mantente informado y firme!';
+  } else {
+    emoji = '🚨'; title = 'RIESGO ELEVADO'; color = '#ef4444';
+    msg = 'Tu entorno o nivel de estrés te hacen más vulnerable. Recuerda: el vape no resuelve el estrés, lo amplifica. Habla con el centro de salud de tu universidad — hay apoyo disponible.';
+  }
+
+  document.getElementById('res-emoji').textContent = emoji;
+  const rt = document.getElementById('res-title');
+  rt.textContent = title; rt.style.color = color;
+  document.getElementById('res-msg').textContent = msg;
+  setTimeout(() => { document.getElementById('res-fill').style.width = pct + '%'; }, 350);
+}
+
+function resetQ() {
+  qIdx = 0; score = 0; chosen = null;
+  document.getElementById('q-block').style.display = 'block';
+  document.getElementById('q-result').style.display = 'none';
+  document.getElementById('res-fill').style.width = '0%';
+  loadQ();
+}
+
+loadQ();
+
+/* ---------- SMOOTH SCROLL ---------- */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+</script>
+</body>
+</html>
